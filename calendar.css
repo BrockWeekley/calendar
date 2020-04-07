@@ -1,0 +1,48 @@
+.scheduleFlex {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+.calendar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.wholeCalendar {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    justify-content: space-between;
+}
+.scheduleTitle {
+    width: 100%;
+}
+.week {
+    display: flex;
+    justify-content: space-evenly;
+    margin-right: 2%;
+}
+
+.day {
+    padding: 2% 2% 3% 2%;
+    text-align: center;
+    width: 100%;
+    border-bottom: var(--cmn-primary) solid 2px;
+
+}
+.date {
+    padding: 2% .5px 5% .5px;
+    text-align: left;
+    font-size: small;
+    width: 100%;
+}
+.date:hover {
+    color: var(--cmn-primary);
+    cursor: pointer;
+    border: black solid .5px;
+    border-radius: 5px;
+}
