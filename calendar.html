@@ -1,0 +1,18 @@
+
+           <div class="wholeCalendar">
+               <div class="scheduleTitle">
+                   {{year }} {{ month }} {{ day }} <mat-icon (click)="changeMonth()">arrow_right_alt</mat-icon>
+               </div>
+               <br/>
+               <div class="calendar" *ngIf="ready">
+                   <div class="week">
+                       <div class="day">S</div><div class="day">M</div><div class="day">T</div><div class="day">W</div><div class="day">T</div><div class="day">F</div><div class="day">S</div>
+                   </div>
+                   <div class="week" *ngFor="let week of weeks">
+                       <div class="date" *ngFor="let day of week">
+                           {{ day.day }}
+                           <div class="scheduleBlock" *ngIf="day.schedule"></div>
+                       </div>
+                   </div>
+               </div>
+           </div>
