@@ -62,40 +62,47 @@ export class SchedulerComponent implements OnInit {
         const lastDate = lastDay.getDate();
         const weeksInMonth = this.getWeeks(year, month, firstDay, lastDay);
         let weekToAdd = [];
-        let multi = 1;
-        let holdMulti = 0;
+        let dayValue = 1;
+        let holdDayValue = 0;
 
-        for (let i = 0; i < weeksInMonth; i++) {
+        for (let i = 0; i <= weeksInMonth; i++) {
             weekToAdd = [];
             if (i === 0) {
                 for (let j = 0; j < 7; j++) {
                     if (j < firstWeekDay) {
                         weekToAdd.push('');
                     } else {
-                        weekToAdd.push(multi);
-                        multi += 1;
+                        weekToAdd.push({day: dayValue, schedule: [], weekDay: (new Date(year, month, dayValue)).getDay().toString()});
+                        dayValue += 1;
                     }
                 }
-                holdMulti = multi;
+                holdDayValue = dayValue;
             } else {
                 for (let j = 0; j < 7; j++) {
-                    if (holdMulti > 7) {
-                        if ((multi + (i * 7)) <= lastDate) {
-                            weekToAdd.push(multi + (i * 7));
+                    if (holdDayValue > (i * 7)) {
+                        if ((dayValue + (i * 7)) <= lastDate) {
+                            weekToAdd.push({day: dayValue + (i * 7), schedule: [], weekDay: (new Date(year, month, dayValue + (i * 7))).getDay().toString()});
                         } else {
                             weekToAdd.push('');
                         }
-                        multi += 1;
+                        holdDayValue += 1;
+                        dayValue += 1;
                     } else {
-                        weekToAdd.push(holdMulti);
-                        holdMulti++;
+                        if (holdDayValue <= lastDate) {
+                            weekToAdd.push({day: holdDayValue, schedule: [], weekDay: (new Date(year, month, holdDayValue)).getDay().toString()});
+                            holdDayValue++;
+                        } else {
+                            weekToAdd.push('');
+                        }
                     }
                 }
             }
-            this.weeks.push(weekToAdd);
-            multi = 1;
+            if (weekToAdd[0] !== '' || weekToAdd[6] !== '') {
+                this.weeks.push(weekToAdd);
+            }
+            dayValue = 1;
         }
-        this.ready = true;
+        console.log(this.weeks);
     }
 
     getWeeks(year, month, firstOfMonth, lastOfMonth) {
